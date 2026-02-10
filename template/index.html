@@ -1,0 +1,581 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>unpkg.ai - AI-powered ESM modules</title>
+    
+    <!-- SEO Meta Tags -->
+    <meta name="description" content="Zero friction AI-powered ESM modules. No signup, no API keys - creates JavaScript modules on-demand using LLMs. Perfect for dynamic plugins and top-down development.">
+    <meta name="keywords" content="AI, ESM, modules, JavaScript, dynamic, plugins, LLM, top-down, coding, unpkg, TypeScript">
+    <meta name="author" content="strawberry.computer">
+    <link rel="canonical" href="https://unpkg.ai/">
+    
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://unpkg.ai/">
+    <meta property="og:title" content="unpkg.ai - AI-powered ESM modules">
+    <meta property="og:description" content="Zero friction AI-powered ESM modules. No signup, no API keys - creates JavaScript modules on-demand using LLMs. Perfect for dynamic plugins and top-down development.">
+    <meta property="og:image" content="https://unpkg.ai/social-card.png">
+    <meta property="og:site_name" content="unpkg.ai">
+    
+    <!-- Twitter -->
+    <meta property="twitter:card" content="summary_large_image">
+    <meta property="twitter:url" content="https://unpkg.ai/">
+    <meta property="twitter:title" content="unpkg.ai - AI-powered ESM modules">
+    <meta property="twitter:description" content="Zero friction AI-powered ESM modules. No signup, no API keys - creates JavaScript modules on-demand using LLMs. Perfect for dynamic plugins and top-down development.">
+    <meta property="twitter:image" content="https://unpkg.ai/social-card.png">
+    
+    <style>
+        body { 
+            font-family: system-ui, -apple-system, sans-serif; 
+            max-width: 1200px; 
+            margin: 0 auto; 
+            padding: 2rem; 
+            line-height: 1.6; 
+            color: #333;
+        }
+        h1 { color: #2563eb; border-bottom: 3px solid #dbeafe; padding-bottom: 0.5rem; }
+        h2 { color: #1e40af; margin-top: 2rem; }
+        pre { 
+            background: #f8fafc; 
+            padding: 1rem; 
+            border-radius: 0.5rem; 
+            overflow-x: auto;
+        }
+        code { 
+            font-size: 0.9em;
+        }
+        .endpoint { 
+            margin: 1rem 0;
+        }
+        .example { 
+            margin: 1rem 0;
+        }
+        table { 
+            width: 100%; 
+            border-collapse: collapse; 
+            margin: 1rem 0;
+        }
+        th, td { 
+            border: 1px solid #d1d5db; 
+            padding: 0.75rem; 
+            text-align: left;
+        }
+        th { background: #f9fafb; font-weight: 600; }
+        .highlight { background: #fef3c7; padding: 0.1rem 0.3rem; border-radius: 0.25rem; }
+        
+        /* Button animations and consistent styling */
+        .try-now-btn {
+            padding: 0.5rem 1rem;
+            background: #2563eb;
+            color: white;
+            border: none;
+            border-radius: 0.25rem;
+            cursor: pointer;
+            font-weight: 500;
+            transition: all 0.2s ease-in-out;
+            transform: translateY(0);
+        }
+        
+        .try-now-btn:hover {
+            background: #1d4ed8;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(37, 99, 235, 0.3);
+        }
+        
+        .try-now-btn:active {
+            transform: translateY(0);
+            box-shadow: 0 2px 4px rgba(37, 99, 235, 0.3);
+        }
+        
+        .secondary-btn {
+            padding: 0.5rem 1rem;
+            background: #6b7280;
+            color: white;
+            border: none;
+            border-radius: 0.25rem;
+            cursor: pointer;
+            transition: all 0.2s ease-in-out;
+            transform: translateY(0);
+        }
+        
+        .secondary-btn:hover {
+            background: #4b5563;
+            transform: translateY(-1px);
+            box-shadow: 0 2px 4px rgba(107, 114, 128, 0.3);
+        }
+        
+        .secondary-btn:active {
+            transform: translateY(0);
+        }
+        
+        .view-module-btn {
+            padding: 0.5rem 1rem;
+            background: #2563eb;
+            color: white;
+            border: none;
+            border-radius: 0.25rem;
+            cursor: pointer;
+            transition: all 0.2s ease-in-out;
+            transform: translateY(0);
+        }
+        
+        .view-module-btn:hover {
+            background: #1d4ed8;
+            transform: translateY(-1px);
+            box-shadow: 0 2px 4px rgba(37, 99, 235, 0.3);
+        }
+        
+        .view-module-btn:active {
+            transform: translateY(0);
+        }
+        
+        /* Responsive design for demo layout */
+        @media (max-width: 1200px) {
+            .demo-layout {
+                grid-template-columns: 1fr !important;
+                gap: 1rem !important;
+                grid-template-rows: 1fr 1fr !important;
+                padding: 1rem !important;
+            }
+            
+            #demoSection {
+                height: 100vh !important; /* Fallback */
+                height: 100dvh !important; /* Use dynamic viewport height for mobile */
+                min-height: 100vh !important;
+                min-height: 100dvh !important;
+            }
+            
+            /* Ensure console is properly constrained in vertical stack */
+            #consolePanel {
+                min-height: 0 !important;
+                overflow: hidden !important;
+            }
+        }
+        
+        /* Responsive design for smaller screens */
+        @media (max-width: 768px) {
+            body {
+                padding: 1rem !important;
+            }
+            
+            h1 {
+                font-size: 1.5rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <h1>🚀 unpkg.ai</h1>
+    <p><strong>AI-powered ESM module generation service</strong> that creates JavaScript modules on-demand using LLMs.</p>
+    <p><strong>🎯 Zero friction:</strong> No signup • No API keys • No authentication required</p>
+    
+    <p>Top-down vibe coding. Imagine any module you need. Perfect for systems with dynamic plugins.</p>
+
+    <h2>📋 Quick Start</h2>
+    <div class="endpoint">
+        <strong>GET</strong> <code>/esm/{url-encoded-prompt}.js</code>
+    </div>
+    
+    <div class="example">
+        <h3>Example Request:</h3>
+        <pre><code>https://unpkg.ai/esm/formatCurrency(amount:number,currency%3F:string):string.js</code></pre>
+        <h3>Usage in your code:</h3>
+        <pre><code>import { formatCurrency } from 'https://unpkg.ai/esm/formatCurrency(amount:number,currency%3F:string):string.js';
+console.log(formatCurrency(1234.56, 'EUR')); // "€1,234.56"</code></pre>
+    </div>
+
+    <h2>🔧 Parameters</h2>
+    <table>
+        <tr><th>Parameter</th><th>Description</th><th>Example</th><th>Required</th></tr>
+        <tr><td><code>model</code></td><td>AI model to use</td><td><code>gpt-4</code>, <code>claude-3</code></td><td>No</td></tr>
+        <tr><td><code>seed</code></td><td>Random seed for deterministic output</td><td><code>12345</code></td><td>No</td></tr>
+    </table>
+
+
+    <h2>📚 Interactive Examples</h2>
+
+    <!-- Format Currency Example -->
+    <div style="margin: 1.5rem 0;">
+        <h3 style="margin: 0 0 0.5rem 0; color: #374151;">💱 Currency Formatter</h3>
+        
+        <pre style="font-size: 0.9em; line-height: 1.4; margin: 1rem 0;"><code>import { formatCurrency } from 
+  'https://unpkg.ai/esm/formatCurrency(amount:number,currency%3F:string):string.js';
+
+const formatted = formatCurrency(1234.56, 'EUR');
+console.log(formatted); // "€1,234.56"</code></pre>
+
+        <div style="display: flex; gap: 0.75rem; margin-top: 1rem;">
+            <button onclick="openDemo(this)" class="try-now-btn">Try Now</button>
+            <button onclick="copyCode(this)" class="secondary-btn">Copy Code</button>
+            <button onclick="openModule('formatCurrency(amount:number,currency%3F:string):string')" class="view-module-btn">View Module</button>
+        </div>
+    </div>
+
+    <!-- Tip Calculator Example -->
+    <div style="margin: 1.5rem 0;">
+        <h3 style="margin: 0 0 0.5rem 0; color: #374151;">💰 Tip Calculator with Bill Splitting</h3>
+        
+        <pre style="font-size: 0.9em; line-height: 1.4; margin: 1rem 0;"><code>import { calculateTip } from 
+  'https://unpkg.ai/esm/calculateTip(amount:number,percentage:number,people%3F:number):{tip:number,total:number,perPerson:number}.js';
+
+const result = calculateTip(85.50, 18, 4);
+console.log(result); // { tip: 15.39, total: 100.89, perPerson: 25.22 }</code></pre>
+
+        <div style="display: flex; gap: 0.75rem; margin-top: 1rem;">
+            <button onclick="openDemo(this)" class="try-now-btn">Try Now</button>
+            <button onclick="copyCode(this)" class="secondary-btn">Copy Code</button>
+            <button onclick="openModule('calculateTip(amount:number,percentage:number,people%3F:number):{tip:number,total:number,perPerson:number}')" class="view-module-btn">View Module</button>
+        </div>
+    </div>
+
+    <!-- Password Generator Example -->
+    <div style="margin: 1.5rem 0;">
+        <h3 style="margin: 0 0 0.5rem 0; color: #374151;">🔐 Secure Password Generator</h3>
+        
+        <pre style="font-size: 0.9em; line-height: 1.4; margin: 1rem 0;"><code>import { generatePassword } from 
+  'https://unpkg.ai/esm/generatePassword(options%3F:{length%3F:number,symbols%3F:boolean,numbers%3F:boolean,uppercase%3F:boolean,lowercase%3F:boolean}):{password:string,strength:number,feedback:string[]}.js';
+
+const result = generatePassword({ length: 16, symbols: true });
+console.log(result); // { password: 'K#9m$L2pQ!7vX8nR', strength: 95, feedback: ['Very strong'] }</code></pre>
+
+        <div style="display: flex; gap: 0.75rem; margin-top: 1rem;">
+            <button onclick="openDemo(this)" class="try-now-btn">Try Now</button>
+            <button onclick="copyCode(this)" class="secondary-btn">Copy Code</button>
+            <button onclick="openModule('generatePassword(options%3F:{length%3F:number,symbols%3F:boolean,numbers%3F:boolean,uppercase%3F:boolean,lowercase%3F:boolean}):{password:string,strength:number,feedback:string[]}')" class="view-module-btn">View Module</button>
+        </div>
+    </div>
+
+    <!-- Color Palette Example -->
+    <div style="margin: 1.5rem 0;">
+        <h3 style="margin: 0 0 0.5rem 0; color: #374151;">🎨 Color Palette Generator</h3>
+        
+        <pre style="font-size: 0.9em; line-height: 1.4; margin: 1rem 0;"><code>import { generatePalette } from 
+  'https://unpkg.ai/esm/generatePalette(baseColor:string,count%3F:number,type%3F:"complementary"|"analogous"|"triadic"):{colors:{hex:string,rgb:string,hsl:string,name:string}[],scheme:string}.js';
+
+const palette = generatePalette('#3B82F6', 5, 'complementary');
+console.log(palette); // { colors: [{hex: '#3B82F6', name: 'Blue'}, ...], scheme: 'Complementary' }</code></pre>
+
+        <div style="display: flex; gap: 0.75rem; margin-top: 1rem;">
+            <button onclick="openDemo(this)" class="try-now-btn">Try Now</button>
+            <button onclick="copyCode(this)" class="secondary-btn">Copy Code</button>
+            <button onclick="openModule('generatePalette(baseColor:string,count%3F:number,type%3F:"complementary"|"analogous"|"triadic"):{colors:{hex:string,rgb:string,hsl:string,name:string}[],scheme:string}')" class="view-module-btn">View Module</button>
+        </div>
+    </div>
+
+    <!-- Minesweeper Example -->
+    <div style="margin: 1.5rem 0;">
+        <h3 style="margin: 0 0 0.5rem 0; color: #374151;">💣 Complete Minesweeper Game</h3>
+        
+        <pre style="font-size: 0.9em; line-height: 1.4; margin: 1rem 0;"><code>import { initMinesweeper } from 
+  'https://unpkg.ai/esm/initMinesweeper(container:string,options%3F:{width%3F:number,height%3F:number,mines%3F:number}):{start:()=>void,reset:()=>void,getStats:()=>{games:number,wins:number,time:number}}.js';
+
+// Create container for the game
+const gameContainer = document.createElement('div');
+gameContainer.id = 'game-container';
+document.body.appendChild(gameContainer);
+
+// Creates a complete playable minesweeper game with UI
+const game = initMinesweeper('#game-container', { width: 10, height: 10, mines: 15 });
+console.log('Game initialized:', game);
+game.start(); // Full game with click handlers, animations, timer, score tracking</code></pre>
+
+        <div style="display: flex; gap: 0.75rem; margin-top: 1rem;">
+            <button onclick="openDemo(this)" class="try-now-btn">Try Now</button>
+            <button onclick="copyCode(this)" class="secondary-btn">Copy Code</button>
+            <button onclick="openModule('initMinesweeper(container:string,options%3F:{width%3F:number,height%3F:number,mines%3F:number}):{start:()=>void,reset:()=>void,getStats:()=>{games:number,wins:number,time:number}}')" class="view-module-btn">View Module</button>
+        </div>
+    </div>
+
+    <!-- Rich Text Editor Example -->
+    <div style="margin: 1.5rem 0;">
+        <h3 style="margin: 0 0 0.5rem 0; color: #374151;">📝 Rich Text Editor</h3>
+        
+        <pre style="font-size: 0.9em; line-height: 1.4; margin: 1rem 0;"><code>import { createRichEditor } from 
+  'https://unpkg.ai/esm/createRichEditor(container:string):{getContent:()=>string,setContent:(content:string)=>void,insertText:(text:string)=>void}|Rich+text+editor+with+bold+italic+lists+links+features.js';
+
+// Create container for the editor
+const editorContainer = document.createElement('div');
+editorContainer.id = 'editor';
+editorContainer.style.cssText = 'border: 1px solid #e5e7eb; border-radius: 8px; min-height: 200px; background: white;';
+document.body.appendChild(editorContainer);
+
+const editor = createRichEditor('#editor');
+console.log('Editor created:', editor);
+editor.setContent('# Welcome\n\nStart typing...');</code></pre>
+
+        <div style="display: flex; gap: 0.75rem; margin-top: 1rem;">
+            <button onclick="openDemo(this)" class="try-now-btn">Try Now</button>
+            <button onclick="copyCode(this)" class="secondary-btn">Copy Code</button>
+            <button onclick="openModule('createRichEditor(container:string):{getContent:()=>string,setContent:(content:string)=>void,insertText:(text:string)=>void}|Rich+text+editor+with+bold+italic+lists+links+features')" class="view-module-btn">View Module</button>
+        </div>
+    </div>
+
+    <!-- Dashboard Example -->
+    <div style="margin: 1.5rem 0;">
+        <h3 style="margin: 0 0 0.5rem 0; color: #374151;">📊 Interactive Data Dashboard</h3>
+        
+        <pre style="font-size: 0.9em; line-height: 1.4; margin: 1rem 0;"><code>import { createDashboard } from 
+  'https://unpkg.ai/esm/createDashboard(containerSelector:string):{addChart:(id:string,type:string,data:{x:string,y:number}[])=>void,updateChart:(id:string,data:{x:string,y:number}[])=>void,addFilter:(name:string,callback:(data:{x:string,y:number}[])=>{x:string,y:number}[])=>void}|Interactive+dashboard+with+single+line+chart+and+filtering+that+preserves+data+order.js';
+
+// Create container for the dashboard
+const dashboardContainer = document.createElement('div');
+dashboardContainer.id = 'dashboard';
+dashboardContainer.style.cssText = 'border: 1px solid #e5e7eb; border-radius: 8px; min-height: 300px; background: white; padding: 1rem;';
+document.body.appendChild(dashboardContainer);
+
+const dashboard = createDashboard('#dashboard');
+
+// Add interactive sales chart
+dashboard.addChart('sales', 'line', [
+  { x: 'Jan', y: 1000 }, { x: 'Feb', y: 1200 }, { x: 'Mar', y: 800 }, { x: 'Apr', y: 1500 }
+]);
+</code></pre>
+
+        <div style="display: flex; gap: 0.75rem; margin-top: 1rem;">
+            <button onclick="openDemo(this)" class="try-now-btn">Try Now</button>
+            <button onclick="copyCode(this)" class="secondary-btn">Copy Code</button>
+            <button onclick="openModule('createDashboard(containerSelector:string):{addChart:(id:string,type:string,data:{x:string,y:number}[])=>void,updateChart:(id:string,data:{x:string,y:number}[])=>void,addFilter:(name:string,callback:(data:{x:string,y:number}[])=>{x:string,y:number}[])=>void}|Interactive+dashboard+with+single+line+chart+and+filtering+that+preserves+data+order')" class="view-module-btn">View Module</button>
+        </div>
+    </div>
+
+    <!-- Expandable Demo Section (hidden by default) -->
+    <div id="demoSection" style="display: none; flex-direction: column; position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; background: #f8fafc; z-index: 1000; overflow: hidden; box-sizing: border-box;">
+        <div style="display: flex; align-items: center; gap: 1rem; padding: 1rem; border-bottom: 1px solid #e2e8f0; background: white; flex-shrink: 0;">
+            <button onclick="closeDemo()" style="padding: 0.5rem 1rem; background: #6b7280; color: white; border: none; border-radius: 0.25rem; cursor: pointer; font-weight: 500; display: flex; align-items: center; gap: 0.5rem; margin-left: 0.5rem;">← Back</button>
+            <h3 id="demoTitle" style="margin: 0; color: #374151;">Interactive Demo</h3>
+        </div>
+        
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; padding: 1.5rem; flex: 1;" class="demo-layout">
+            <!-- Code Editor with Run button as header -->
+            <div style="display: flex; flex-direction: column;">
+                <div style="margin-bottom: 0.5rem;">
+                    <button onclick="runCodeInIframe()" style="padding: 0.5rem 1rem; background: #10b981; color: white; border: none; border-radius: 0.25rem; cursor: pointer; font-weight: 500;">▶ Run</button>
+                </div>
+                <textarea id="codeEditor" style="width: 100%; flex: 1; font-family: monospace; font-size: 0.9em; padding: 0.75rem; border: none; background: white; border-radius: 0.25rem; resize: none; overflow: auto; box-shadow: 0 1px 3px rgba(0,0,0,0.1);"></textarea>
+            </div>
+            
+            <!-- Tabbed Output -->
+            <div style="display: flex; flex-direction: column;">
+                <div style="margin-bottom: 0.5rem;">
+                    <button id="resultTab" onclick="switchTab('result')" style="padding: 0.5rem 1rem; background: #3b82f6; color: white; border: none; border-radius: 0.25rem 0.25rem 0 0; cursor: pointer; margin-right: 1px;">🖼️ Live Result</button>
+                    <button id="consoleTab" onclick="switchTab('console')" style="padding: 0.5rem 1rem; background: #6b7280; color: white; border: none; border-radius: 0.25rem 0.25rem 0 0; cursor: pointer;">📟 Console</button>
+                </div>
+                
+                <div id="resultPanel" style="display: block; flex: 1;">
+                    <iframe id="resultFrame" style="width: 100%; height: 100%; border: none; border-radius: 0 0.25rem 0.25rem 0.25rem; background: white; box-shadow: 0 1px 3px rgba(0,0,0,0.1);">
+                    </iframe>
+                </div>
+                
+                <div id="consolePanel" style="display: none; flex: 1; position: relative;">
+                    <div id="consoleOutput" style="background: #1f2937; color: #f9fafb; font-family: monospace; font-size: 0.85em; padding: 0.75rem; border-radius: 0 0.25rem 0.25rem 0.25rem; position: absolute; top: 0; left: 0; right: 0; bottom: 0; white-space: pre-wrap; overflow-y: auto; box-shadow: 0 1px 3px rgba(0,0,0,0.1); box-sizing: border-box;">Ready to run code...</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+
+
+
+    <h2>🎯 Prompt Syntax</h2>
+    <ul>
+        <li><span class="highlight">Functions:</span> <code>functionName(param1:type1,param2%3F:type2):ReturnType</code></li>
+        <li><span class="highlight">Objects:</span> <code>{property1:type1,property2%3F:type2}</code></li>
+    </ul>
+
+    <h2>🔗 API Endpoints</h2>
+    <ul>
+        <li><code>GET /esm/{prompt}.js</code> - Generate ES module</li>
+        <li><code>GET /health</code> - Health check</li>
+        <li><code>GET /llms.txt</code> - LLM-friendly documentation</li>
+    </ul>
+
+    <h2>✨ Features</h2>
+    <ul>
+        <li>🎯 <strong>Zero friction</strong> - No signup, no API keys, no authentication required</li>
+        <li>🔄 <strong>Permanent caching</strong> - Generated modules cached forever</li>
+        <li>⚡ <strong>Instant delivery</strong> - Cached modules served instantly</li>
+        <li>🌐 <strong>CDN-ready</strong> - Long cache headers for optimal performance</li>
+    </ul>
+
+    <footer style="margin-top: 3rem; padding-top: 2rem; border-top: 1px solid #e5e7eb; color: #6b7280;">
+        <p>Made with ❤️ for the JavaScript ecosystem. <a href="https://github.com/Strawberry-Computer/unpkg.ai" style="color: #2563eb;">View on GitHub</a></p>
+        <p>A product by <a href="https://strawberry.computer" style="color: #2563eb;">strawberry.computer</a></p>
+    </footer>
+
+    <script>
+        
+        // Demo System Functions - Extract code from HTML examples
+        
+        function openDemo(buttonElement) {
+            // Find the parent example container
+            const exampleContainer = buttonElement.closest('div[style*="margin: 1.5rem 0"]');
+            if (!exampleContainer) return;
+            
+            // Extract the title from the h3 element
+            const titleElement = exampleContainer.querySelector('h3');
+            const title = titleElement ? titleElement.textContent + ' Demo' : 'Interactive Demo';
+            
+            // Extract the code from the pre > code element
+            const codeElement = exampleContainer.querySelector('pre code');
+            if (!codeElement) return;
+            
+            const code = codeElement.textContent;
+            
+            // Hide body scrollbar when entering fullscreen
+            document.body.style.overflow = 'hidden';
+            
+            // Open the demo section
+            document.getElementById('demoSection').style.display = 'flex';
+            document.getElementById('demoTitle').textContent = title;
+            document.getElementById('codeEditor').value = code;
+            
+            // Clear console output
+            document.getElementById('consoleOutput').textContent = 'Ready to run code...';
+            
+            // Clear and reset iframe
+            const iframe = document.getElementById('resultFrame');
+            iframe.src = 'about:blank';
+            
+            // Default to Console tab
+            switchTab('console');
+            
+            // Scroll to demo section
+            document.getElementById('demoSection').scrollIntoView({ behavior: 'smooth' });
+            
+            // Automatically run the code
+            runCodeInIframe();
+        }
+        
+        function closeDemo() {
+            document.getElementById('demoSection').style.display = 'none';
+            // Restore body scrollbar when exiting fullscreen
+            document.body.style.overflow = '';
+        }
+        
+        function switchTab(tab) {
+            const resultTab = document.getElementById('resultTab');
+            const consoleTab = document.getElementById('consoleTab');
+            const resultPanel = document.getElementById('resultPanel');
+            const consolePanel = document.getElementById('consolePanel');
+            
+            if (tab === 'result') {
+                resultTab.style.background = '#3b82f6';
+                consoleTab.style.background = '#6b7280';
+                resultPanel.style.display = 'block';
+                consolePanel.style.display = 'none';
+            } else {
+                resultTab.style.background = '#6b7280';
+                consoleTab.style.background = '#3b82f6';
+                resultPanel.style.display = 'none';
+                consolePanel.style.display = 'block';
+            }
+        }
+        
+        function runCodeInIframe() {
+            const code = document.getElementById('codeEditor').value;
+            const consoleOutput = document.getElementById('consoleOutput');
+            const iframe = document.getElementById('resultFrame');
+            
+            try {
+                consoleOutput.textContent = 'Running code in iframe...\n';
+                
+                // Clear iframe and write content directly
+                iframe.src = 'about:blank';
+                iframe.onload = () => {
+                    const iframeDoc = iframe.contentDocument;
+                    const iframeWin = iframe.contentWindow;
+                    
+                    // Just create the script element directly
+                    
+                    // Capture console logs
+                    const originalLog = iframeWin.console.log;
+                    const originalError = iframeWin.console.error;
+                    
+                    iframeWin.console.log = (...args) => {
+                        const message = args.map(arg => typeof arg === 'object' ? JSON.stringify(arg, null, 2) : String(arg)).join(' ');
+                        originalLog(...args);
+                        consoleOutput.textContent += message + '\n';
+                        consoleOutput.scrollTop = consoleOutput.scrollHeight;
+                    };
+                    
+                    iframeWin.console.error = (...args) => {
+                        const message = args.map(arg => typeof arg === 'object' ? JSON.stringify(arg, null, 2) : String(arg)).join(' ');
+                        originalError(...args);
+                        consoleOutput.textContent += 'ERROR: ' + message + '\n';
+                        consoleOutput.scrollTop = consoleOutput.scrollHeight;
+                    };
+                    
+                    // Create and inject module script directly with user code
+                    const script = iframeDoc.createElement('script');
+                    script.type = 'module';
+                    
+                    // Inject user code directly as ES6 module
+                    script.textContent = code;
+                    
+                    script.onerror = (error) => {
+                        consoleOutput.textContent += 'Script loading error: ' + error.message + '\n';
+                    };
+                    
+                    script.onload = () => {
+                        // Module has loaded, check for visual content
+                        const iframeBody = iframe.contentDocument.body;
+                        const hasVisualContent = iframeBody && iframeBody.children.length > 1; // More than just the script
+                        
+                        // Switch to Live Result only if there's actual visual content
+                        if (hasVisualContent) {
+                            switchTab('result');
+                        }
+                    };
+                    
+                    iframeDoc.body.appendChild(script);
+                    
+                    consoleOutput.textContent = 'Code running in iframe... Check the result panel above.\n';
+                };
+                
+            } catch (error) {
+                consoleOutput.textContent = `Error: ${error.message}`;
+            }
+        }
+        
+        // Listen for messages from iframe
+        window.addEventListener('message', (event) => {
+            if (event.data.type === 'console') {
+                const consoleOutput = document.getElementById('consoleOutput');
+                if (consoleOutput.textContent === 'Code running in iframe... Check the result panel above.') {
+                    consoleOutput.textContent = '';
+                }
+                consoleOutput.textContent += event.data.message + '\n';
+            }
+        });
+        
+        // Utility functions
+        function copyCode(buttonElement) {
+            // Find the parent example container
+            const exampleContainer = buttonElement.closest('div[style*="margin: 1.5rem 0"]');
+            if (!exampleContainer) return;
+            
+            // Extract the code from the pre > code element
+            const codeElement = exampleContainer.querySelector('pre code');
+            if (!codeElement) return;
+            
+            const code = codeElement.textContent;
+            
+            navigator.clipboard.writeText(code).then(() => {
+                // Show a brief success message
+                const event = new CustomEvent('show-toast', { detail: { message: 'Code copied to clipboard!' } });
+                window.dispatchEvent(event);
+            });
+        }
+        
+        function openModule(signature) {
+            const encodedSignature = encodeURIComponent(signature);
+            const url = `/esm/${encodedSignature}.js`;
+            window.open(url, '_blank');
+        }
+    </script>
+</body>
+</html>
