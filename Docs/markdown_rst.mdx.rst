@@ -2,7 +2,7 @@
 Nim-flavored Markdown and reStructuredText
 ==========================================
 
-:Author: Andrey Makarov
+:Author: 
 :Version: |nimversion|
 
 .. default-role:: code
